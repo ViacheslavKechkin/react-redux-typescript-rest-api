@@ -1,11 +1,14 @@
 import React from "react";
 import * as ReactDOM from "react-dom/client";
 import { BrowserRouter } from "react-router-dom";
+import { Provider } from "react-redux";
 
 import { App } from "./App";
 import { ColorModeScript } from "@chakra-ui/react";
 
 import * as serviceWorker from "./serviceWorker";
+
+import store from "./store";
 
 import "./index.scss";
 
@@ -16,9 +19,12 @@ const root = ReactDOM.createRoot(container);
 root.render(
   <React.StrictMode>
     <ColorModeScript />
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <Provider store={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </Provider>
+
   </React.StrictMode>
 );
 serviceWorker.unregister();
