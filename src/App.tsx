@@ -1,9 +1,21 @@
-import * as React from "react"
+import React from "react";
+import { useRoutes } from "react-router-dom";
 
-import { ColorModeSwitcher } from "./ColorModeSwitcher"
-import { ChakraProvider} from "@chakra-ui/react"
+import { ChakraProvider } from "@chakra-ui/react"
 
-export const App = () => (
-  <ChakraProvider>
-  </ChakraProvider>
-)
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+import Routes from "./Routes";
+
+export const App = () => {
+  const routes = useRoutes(Routes);
+
+  return (
+    <ChakraProvider>
+      <Header />
+      {routes}
+      <Footer />
+    </ChakraProvider>
+  )
+}

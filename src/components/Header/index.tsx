@@ -4,4 +4,4 @@ const Header = () => {
     return <header>footer</header>;
 };
 
-export { Header };
+export default Header;

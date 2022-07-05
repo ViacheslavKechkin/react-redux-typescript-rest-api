@@ -1,7 +1,7 @@
 import React from "react";
 
 const Main = () => {
-    return <main>footer</main>;
+    return <main>Main</main>;
 };
 
-export { Main };
+export default Main;
