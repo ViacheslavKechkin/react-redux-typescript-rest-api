@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { requestInstance } from "../utils/index"
+import { requestInstance } from "../utils"
 
 const photoSlice = createSlice({
   name: "photoSlice",

@@ -57,3 +57,24 @@ export type TUser = {
     bs: string;
   };
 };
+
+export type TKeys = {
+  result: boolean;
+  success: boolean;
+  fetching: boolean;
+  message: string;
+  dto?: {
+    page?: number;
+    limit?: number;
+    sort?: string;
+    order?: "asc" | "desc";
+  };
+}
+
+export type TSliceKeys = {
+  posts: TPost[],
+  detail: TKeys;
+  list: TKeys;
+  create: TKeys;
+  update: TKeys;
+};

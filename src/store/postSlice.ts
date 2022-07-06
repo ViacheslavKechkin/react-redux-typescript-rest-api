@@ -1,14 +1,22 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
-import { requestInstance } from "../utils/index";
+import { requestInstance } from "../utils";
+
+import { TPost, TKeys, TSliceKeys } from "../types"
+
+type PostState = {
+  posts: TPost[];
+}
+
+const initialState: PostState = {
+  posts: [],
+}
 
 const postSlice = createSlice({
   name: "postSlice",
-  initialState: {
-    posts: [],
-  },
+  initialState,
   reducers: {
-    setPosts(state, action) {
+    setPosts(state, action: PayloadAction<TPost[]>) {
       state.posts = action.payload;
     },
   },
