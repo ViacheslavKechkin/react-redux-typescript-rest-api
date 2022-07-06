@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { instance } from "../utils/index";
+import { requestInstance } from "../utils/index";
 
 const postSlice = createSlice({
   name: "postSlice",
@@ -17,3 +17,4 @@ const postSlice = createSlice({
 export default postSlice.reducer;
 
 export const { setPosts } = postSlice.actions;
+
