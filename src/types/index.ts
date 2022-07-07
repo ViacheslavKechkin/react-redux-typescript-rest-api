@@ -58,16 +58,18 @@ export type TUser = {
   };
 };
 
+export type TDto = {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  order?: "asc" | "desc";
+}
+
 export interface FetchStatus {
   success: boolean;
   fetching: boolean;
   message: string;
-  dto?: {
-    page?: number;
-    limit?: number;
-    sort?: string;
-    order?: "asc" | "desc";
-  };
+  dto?: TDto
 }
 
 export interface TArray<T> extends FetchStatus {
