@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { requestInstance } from "../utils"
 
 const commentSlice = createSlice({
-  name: "commentSlice",
+  name: "comment",
   initialState: {
     comments: [],
   },

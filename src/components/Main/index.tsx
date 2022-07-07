@@ -5,11 +5,10 @@ import { useAppSelector, useAppDispatch } from "../../hooks"
 import { setPosts } from "../../store/postSlice"
 
 const Main = () => {
-    const posts = useAppSelector(state => state.post.posts)
+    const posts = useAppSelector(state => state.post.detail)
 
     const dispatch = useAppDispatch()
 
-    dispatch(setPosts())
 
     return <main>Main</main>;
 };

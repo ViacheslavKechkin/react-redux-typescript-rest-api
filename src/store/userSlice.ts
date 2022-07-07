@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { requestInstance } from "../utils"
 
 const userSlice = createSlice({
-  name: "userSlice",
+  name: "user",
   initialState: {
     users: [],
   },

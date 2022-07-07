@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { requestInstance } from "../utils"
 
 const todoSlice = createSlice({
-  name: "todoSlice",
+  name: "todo",
   initialState: {
     todos: [],
   },

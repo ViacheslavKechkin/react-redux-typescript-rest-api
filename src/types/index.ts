@@ -58,8 +58,7 @@ export type TUser = {
   };
 };
 
-export type TKeys = {
-  result: boolean;
+export interface FetchStatus {
   success: boolean;
   fetching: boolean;
   message: string;
@@ -71,10 +70,15 @@ export type TKeys = {
   };
 }
 
-export type TSliceKeys = {
-  posts: TPost[],
-  detail: TKeys;
-  list: TKeys;
-  create: TKeys;
-  update: TKeys;
+export interface TPostArray<T> extends FetchStatus {
+  result: T[];
+}
+
+export interface TPostObject<T> extends FetchStatus {
+  result: T | null;
+}
+
+export type TPostSlice = {
+  detail: TPostObject<TPost>;
+  list: TPostArray<TPost>;
 };

@@ -2,22 +2,21 @@ import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { requestInstance } from "../utils";
 
-import { TPost, TKeys, TSliceKeys } from "../types"
+import { initDetail, initArray } from "../const"
 
-type PostState = {
-  posts: TPost[];
-}
+import { TPost, TPostSlice } from "../types"
 
-const initialState: PostState = {
-  posts: [],
+const initialState: TPostSlice = {
+  detail: { ...initDetail },
+  list: { ...initArray },
 }
 
 const postSlice = createSlice({
-  name: "postSlice",
+  name: "post",
   initialState,
   reducers: {
-    setPosts(state, action: PayloadAction<TPost[]>) {
-      state.posts = action.payload;
+    setPosts(state, action: PayloadAction<TPost>) {
+      state.detail.result = action.payload;
     },
   },
 });

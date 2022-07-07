@@ -3,7 +3,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { requestInstance } from "../utils"
 
 const albumSlice = createSlice({
-  name: "albumSlice",
+  name: "album",
   initialState: {
     albums: [],
   },
