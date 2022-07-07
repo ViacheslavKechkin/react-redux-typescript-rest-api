@@ -1,19 +1,26 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { requestInstance } from "../utils"
 
+import { initDetail, initArray } from "../const"
+
+import { TAlbum, TSlice } from "../types"
+
+const initialState: TSlice<TAlbum> = {
+  detail: { ...initDetail },
+  list: { ...initArray },
+}
+
 const albumSlice = createSlice({
   name: "album",
-  initialState: {
-    albums: [],
-  },
+  initialState,
   reducers: {
-    setAlbums(state, action) {
-      state.albums = action.payload;
+    getAlbums(state, action: PayloadAction<TAlbum>) {
+      state.detail.result = action.payload;
     },
   },
 });
 
 export default albumSlice.reducer;
 
-export const { setAlbums } = albumSlice.actions;
+export const { getAlbums } = albumSlice.actions;

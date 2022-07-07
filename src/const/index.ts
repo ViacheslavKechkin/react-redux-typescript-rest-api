@@ -6,7 +6,7 @@ export const initDetail = {
   message: "",
   dto: {
     page: 1,
-    limit: 1,
+    limit: 10,
   }
 };
 
@@ -17,6 +17,6 @@ export const initArray = {
   message: "",
   dto: {
     page: 1,
-    limit: 1,
+    limit: 10,
   }
 };

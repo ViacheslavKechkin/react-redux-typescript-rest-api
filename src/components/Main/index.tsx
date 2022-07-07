@@ -2,10 +2,11 @@ import React from "react";
 
 import { useAppSelector, useAppDispatch } from "../../hooks"
 
-import { setPosts } from "../../store/postSlice"
+import { getPosts } from "../../store/postSlice"
 
 const Main = () => {
-    const posts = useAppSelector(state => state.post.detail)
+    const post = useAppSelector(state => state.post.detail)
+    const posts = useAppSelector(state => state.post.list)
 
     const dispatch = useAppDispatch()
 

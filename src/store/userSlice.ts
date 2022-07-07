@@ -1,19 +1,26 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { requestInstance } from "../utils"
 
+import { initDetail, initArray } from "../const"
+
+import { TUser, TSlice } from "../types"
+
+const initialState: TSlice<TUser> = {
+  detail: { ...initDetail },
+  list: { ...initArray },
+}
+
 const userSlice = createSlice({
   name: "user",
-  initialState: {
-    users: [],
-  },
+  initialState,
   reducers: {
-    setUsers(state, action) {
-      state.users = action.payload;
+    getUsers(state, action: PayloadAction<TUser>) {
+      state.detail.result = action.payload;
     },
   },
 });
 
 export default userSlice.reducer;
 
-export const { setUsers } = userSlice.actions;
+export const { getUsers } = userSlice.actions;

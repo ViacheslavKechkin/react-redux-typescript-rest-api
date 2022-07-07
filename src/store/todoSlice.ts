@@ -1,19 +1,26 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { requestInstance } from "../utils"
 
+import { initDetail, initArray } from "../const"
+
+import { TTodo, TSlice } from "../types"
+
+const initialState: TSlice<TTodo> = {
+  detail: { ...initDetail },
+  list: { ...initArray },
+}
+
 const todoSlice = createSlice({
   name: "todo",
-  initialState: {
-    todos: [],
-  },
+  initialState,
   reducers: {
-    setTodos(state, action) {
-      state.todos = action.payload;
+    getTodos(state, action: PayloadAction<TTodo>) {
+      state.detail.result = action.payload;
     },
   },
 });
 
 export default todoSlice.reducer;
 
-export const { setTodos } = todoSlice.actions;
+export const { getTodos } = todoSlice.actions;

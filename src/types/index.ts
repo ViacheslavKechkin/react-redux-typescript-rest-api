@@ -70,15 +70,15 @@ export interface FetchStatus {
   };
 }
 
-export interface TPostArray<T> extends FetchStatus {
+export interface TArray<T> extends FetchStatus {
   result: T[];
 }
 
-export interface TPostObject<T> extends FetchStatus {
+export interface TObject<T> extends FetchStatus {
   result: T | null;
 }
 
-export type TPostSlice = {
-  detail: TPostObject<TPost>;
-  list: TPostArray<TPost>;
+export type TSlice<T> = {
+  detail: TObject<T>;
+  list: TArray<T>;
 };
