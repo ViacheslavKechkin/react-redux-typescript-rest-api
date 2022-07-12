@@ -8,12 +8,19 @@ import { TPost, TSlice } from "../types"
 
 import { postService } from "../services"
 
+import type WritableDraft from "immer";
+
 const { getPost, getPosts } = postService;
 
-const fetchPosts = createAsyncThunk(
+const getPostsThunk = createAsyncThunk(
   "post/posts",
-  async (_, dispatch) => {
-    await getPosts
+  async () => {
+    try {
+      await getPosts
+    }
+    catch (e) {
+      console.error(e)
+    }
   }
 )
 
@@ -25,22 +32,19 @@ const initialState: TSlice<TPost> = {
 const postSlice = createSlice({
   name: "post",
   initialState,
-  reducers: {
-    getPostsTest(state, action: PayloadAction<TPost>) {
-      state.detail.result = action.payload;
-    },
-  },
+  reducers: {},
   extraReducers(builder) {
     builder
-      .addCase(fetchPosts.pending, (state: TSlice<TPost>, action) => {
+      .addCase(getPostsThunk.pending, (state, action) => {
         state.list.fetching = true;
+        state.list.success = false;
       })
-      .addCase(fetchPosts.fulfilled, (state: TSlice<TPost>, action) => {
+      .addCase(getPostsThunk.fulfilled, (state, action) => {
         state.list.fetching = false;
-        state.list.success = true;
+        state.list.success = false;
         state.list.result = action.payload;
       })
-      .addCase(fetchPosts.rejected, (state: TSlice<TPost>, action) => {
+      .addCase(getPostsThunk.rejected, (state, action) => {
         state.list.fetching = false;
         state.list.success = true;
         state.list.message = action.meta.requestStatus;

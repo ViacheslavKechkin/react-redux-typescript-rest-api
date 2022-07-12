@@ -1,5 +1,3 @@
-import { IGetPost, IGetPosts } from "../interfaces";
-
 import { requestInstance } from "../utils";
 
 import { TPost, TDto } from "../types";
@@ -10,16 +8,12 @@ type Config = {
   };
 };
 
-const getPost = (id: IGetPost) =>
+const getPost = (id: number) =>
   requestInstance
-    .get<TPost>(`posts/${id}`)
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
+    .get<TPost>(`posts/${id}`);
 
-const getPosts = (id: IGetPosts, config: Config) =>
+const getPosts = (id: number, config: Partial<Config>) =>
   requestInstance
-    .get<TPost[]>(`posts/${id}`, config)
-    .then((res) => res.data)
-    .catch((error) => console.log(error));
+    .get<TPost[]>(`posts/${id}`, config);
 
 export const postService = { getPost, getPosts };
