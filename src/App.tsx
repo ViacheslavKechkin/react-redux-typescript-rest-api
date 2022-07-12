@@ -2,6 +2,7 @@ import React from "react";
 import { useRoutes } from "react-router-dom";
 
 import { ChakraProvider } from "@chakra-ui/react"
+import { ColorModeScript } from "@chakra-ui/react";
 
 import Header from "./components/Header";
 import Footer from "./components/Footer";
@@ -16,6 +17,7 @@ export const App = () => {
       <Header />
       {routes}
       <Footer />
+      <ColorModeScript />
     </ChakraProvider>
   )
 }

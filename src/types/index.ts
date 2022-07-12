@@ -57,3 +57,28 @@ export type TUser = {
     bs: string;
   };
 };
+
+export interface FetchStatus {
+  success: boolean;
+  fetching: boolean;
+  message: string;
+  dto?: {
+    page?: number;
+    limit?: number;
+    sort?: string;
+    order?: "asc" | "desc";
+  };
+}
+
+export interface TPostArray<T> extends FetchStatus {
+  result: T[];
+}
+
+export interface TPostObject<T> extends FetchStatus {
+  result: T | null;
+}
+
+export type TPostSlice = {
+  detail: TPostObject<TPost>;
+  list: TPostArray<TPost>;
+};
