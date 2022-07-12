@@ -1,19 +1,26 @@
-import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 import { requestInstance } from "../utils"
 
+import { initDetail, initArray } from "../const"
+
+import { TPhoto, TSlice } from "../types"
+
+const initialState: TSlice<TPhoto> = {
+  detail: { ...initDetail },
+  list: { ...initArray },
+}
+
 const photoSlice = createSlice({
   name: "photo",
-  initialState: {
-    photos: [],
-  },
+  initialState,
   reducers: {
-    setPhotos(state, action) {
-      state.photos = action.payload;
+    getPhotos(state, action: PayloadAction<TPhoto>) {
+      state.detail.result = action.payload;
     },
   },
 });
 
 export default photoSlice.reducer;
 
-export const { setPhotos } = photoSlice.actions;
+export const { getPhotos } = photoSlice.actions;

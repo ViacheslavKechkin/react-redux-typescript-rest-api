@@ -58,27 +58,29 @@ export type TUser = {
   };
 };
 
+export type TDto = {
+  page?: number;
+  limit?: number;
+  sort?: string;
+  order?: "asc" | "desc";
+}
+
 export interface FetchStatus {
   success: boolean;
   fetching: boolean;
   message: string;
-  dto?: {
-    page?: number;
-    limit?: number;
-    sort?: string;
-    order?: "asc" | "desc";
-  };
+  dto?: TDto
 }
 
-export interface TPostArray<T> extends FetchStatus {
+export interface TArray<T> extends FetchStatus {
   result: T[];
 }
 
-export interface TPostObject<T> extends FetchStatus {
+export interface TObject<T> extends FetchStatus {
   result: T | null;
 }
 
-export type TPostSlice = {
-  detail: TPostObject<TPost>;
-  list: TPostArray<TPost>;
+export type TSlice<T> = {
+  detail: TObject<T>;
+  list: TArray<T>;
 };
