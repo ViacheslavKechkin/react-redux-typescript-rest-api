@@ -6,16 +6,20 @@ import { TPost, TSlice } from "../types"
 
 import { postService } from "../services"
 
+import { useAppSelector, useAppDispatch } from "../hooks"
+
 const { getPost, getPosts, deletePost, updatePost } = postService;
 
 const getPostsThunk = createAsyncThunk(
   "post/posts",
-  async () => {
+  async (_, thunkAPI) => {
     try {
-      await getPosts
+      const { data } = await getPosts
+
+      return data;
     }
     catch (e) {
-      console.error(e)
+      thunkAPI.rejectWithValue('Не удалось загрузить:')
     }
   }
 )
@@ -25,6 +29,18 @@ const deletePostThunk = createAsyncThunk(
   async (id: number) => {
     try {
       await deletePost
+    }
+    catch (e) {
+      console.error(e)
+    }
+  }
+)
+
+const updatePostThunk = createAsyncThunk(
+  "post/updatePost",
+  async ({ id, values }, thunkAPI) => {
+    try {
+      const { data } = await updatePost
     }
     catch (e) {
       console.error(e)
@@ -44,31 +60,19 @@ const postSlice = createSlice({
   extraReducers(builder) {
     builder
       .addCase(getPostsThunk.pending, (state, action) => {
-        state.list.fetching = true;
         state.list.success = false;
+        state.list.fetching = true;
+        state.list.message = action.meta.requestStatus;
       })
       .addCase(getPostsThunk.fulfilled, (state, action) => {
-        state.list.fetching = true;
         state.list.success = true;
+        state.list.fetching = true;
+        state.list.message = action.meta.requestStatus;
         state.list.result = action.payload;
       })
       .addCase(getPostsThunk.rejected, (state, action) => {
+        state.list.success = false;
         state.list.fetching = false;
-        state.list.success = false;
-        state.list.message = action.meta.requestStatus;
-      })
-      .addCase(deletePostThunk.pending, (state, action) => {
-        state.list.fetching = true;
-        state.list.success = false;
-      })
-      .addCase(deletePostThunk.fulfilled, (state, action) => {
-        state.list.fetching = true;
-        state.list.success = true;
-        state.list.result = action.payload;
-      })
-      .addCase(deletePostThunk.rejected, (state, action) => {
-        state.list.fetching = false;
-        state.list.success = false;
         state.list.message = action.meta.requestStatus;
       })
   }
@@ -76,5 +80,5 @@ const postSlice = createSlice({
 
 export default postSlice.reducer;
 
-export const { getPostsTest } = postSlice.actions;
+// export const { getPostsTest } = postSlice.actions;
 
