@@ -2,17 +2,7 @@ import { requestInstance } from "../utils";
 
 import { TPost, TDto } from "../types";
 
-type Config = {
-  data: {
-    params: TDto;
-  };
-};
-
-type UpdatePostConfig = {
-  data: {
-    params: TPost;
-  };
-};
+import { IGetPosts, IUpdatePost, AxiosRequestConfig } from "../interfaces";
 
 const getPost = (id: number) =>
   requestInstance
@@ -22,21 +12,21 @@ const deletePost = (id: number) =>
   requestInstance
     .delete<TPost>(`posts/${id}`);
 
-const updatePost = (id: number, data: TPost, config?: Partial<UpdatePostConfig>) => {
-  const { userId, title, body } = data;
+const updatePost = ({ id, ...request }: IUpdatePost, config?: Partial<AxiosRequestConfig>) => {
+  const { userId, title, body } = request;
 
   requestInstance
-    .put<TPost>(`posts/${id}`, {
+    .put<TPost>(`posts/${id}`, [{
       userId,
       id,
       title,
       body,
-    });
+    }, [config]]);
 }
 
-const getPosts = () =>
+const getPosts = ({ ...params }: IGetPosts) =>
   requestInstance
-    .get<TPost[]>(`posts/list`);
+    .get<TPost[]>(`posts/list`, { params });
 
 
 export const postService = { getPost, getPosts, deletePost, updatePost };
