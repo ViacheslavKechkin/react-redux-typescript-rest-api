@@ -17,23 +17,26 @@ const getPostsThunk = createAsyncThunk(
   async ({ ...dto }: TDto, thunkAPI) => {
     try {
       const { data } = await getPosts(dto);
+      console.log('data', data);
 
       return data;
     }
-    catch (e) {
-      thunkAPI.rejectWithValue('Не удалось загрузить:')
+    catch (error) {
+      return thunkAPI.rejectWithValue('Не удалось загрузить!')
     }
   }
 )
 
 const deletePostThunk = createAsyncThunk(
   "post/deletePost",
-  async (id: number) => {
+  async (id: number, thunkAPI) => {
     try {
-      await deletePost();
+      const response = await deletePost(id);
+
+      return response;
     }
-    catch (e) {
-      console.error(e)
+    catch (error) {
+      return thunkAPI.rejectWithValue('Не удалось удалить!')
     }
   }
 )
@@ -42,12 +45,12 @@ const updatePostThunk = createAsyncThunk(
   "post/updatePost",
   async ({ request, config }: IUpdateParams, thunkAPI) => {
     try {
-      const { data } = await updatePost(request, config);
+      const response = await updatePost(request, config);
 
-      return data;
+      return response;
     }
-    catch (e) {
-      console.error(e)
+    catch (error) {
+      return thunkAPI.rejectWithValue('Не удалось обновить!')
     }
   }
 )

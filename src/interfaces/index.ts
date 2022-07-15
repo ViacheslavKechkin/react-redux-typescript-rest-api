@@ -1,5 +1,10 @@
 import { TPost, TDto, UpdateInterface } from "../types"
 
+export interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children?: React.ReactNode;
+  onClick: () => any;
+}
+
 export interface IGetPost {
   id: number
 }
