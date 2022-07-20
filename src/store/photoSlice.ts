@@ -1,10 +1,25 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-import { requestInstance } from "../utils"
+import { TPhoto, TSlice, TDto } from "../types"
 
 import { initDetail, initArray } from "../const"
 
-import { TPhoto, TSlice } from "../types"
+import { photoService } from "../services/photoService"
+
+const { getPhotos } = photoService;
+
+export const getPhotoThunk = createAsyncThunk(
+  "photo/photos",
+  async ({ ...dto }: TDto, thunkAPI) => {
+    try {
+      const { data } = await getPhotos(dto);
+      return data;
+    }
+    catch (error) {
+      return thunkAPI.rejectWithValue('Не удалось загрузить!')
+    }
+  }
+)
 
 const initialState: TSlice<TPhoto> = {
   detail: { ...initDetail },
@@ -14,13 +29,24 @@ const initialState: TSlice<TPhoto> = {
 const photoSlice = createSlice({
   name: "photo",
   initialState,
-  reducers: {
-    getPhotos(state, action: PayloadAction<TPhoto>) {
-      state.detail.result = action.payload;
-    },
-  },
+  reducers: {},
+  extraReducers(builder) {
+    builder
+      .addCase(getPhotoThunk.pending, (state, action) => {
+        state.list.success = false;
+        state.list.fetching = true;
+      })
+      .addCase(getPhotoThunk.fulfilled, (state, action) => {
+        state.list.success = true;
+        state.list.fetching = true;
+        state.list.result = action.payload;
+      })
+      .addCase(getPhotoThunk.rejected, (state, action) => {
+        state.list.success = false;
+        state.list.fetching = false;
+        state.list.message = action.meta.requestStatus;
+      })
+  }
 });
 
 export default photoSlice.reducer;
-
-export const { getPhotos } = photoSlice.actions;

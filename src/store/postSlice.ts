@@ -1,24 +1,20 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 import { initDetail, initArray } from "../const"
 
 import { TPost, TSlice, TDto } from "../types"
 
-import { postService } from "../services"
+import { postService } from "../services/postService"
 
-import { IUpdatePost, IUpdateParams } from "../interfaces"
+import { IUpdateParams } from "../interfaces"
 
-import { useAppSelector, useAppDispatch } from "../hooks"
+const { getPosts, deletePost, updatePost } = postService;
 
-const { getPost, getPosts, deletePost, updatePost } = postService;
-
-const getPostsThunk = createAsyncThunk(
+export const getPostsThunk = createAsyncThunk(
   "post/posts",
   async ({ ...dto }: TDto, thunkAPI) => {
     try {
       const { data } = await getPosts(dto);
-      console.log('data', data);
-
       return data;
     }
     catch (error) {
@@ -27,7 +23,7 @@ const getPostsThunk = createAsyncThunk(
   }
 )
 
-const deletePostThunk = createAsyncThunk(
+export const deletePostThunk = createAsyncThunk(
   "post/deletePost",
   async (id: number, thunkAPI) => {
     try {
@@ -41,7 +37,7 @@ const deletePostThunk = createAsyncThunk(
   }
 )
 
-const updatePostThunk = createAsyncThunk(
+export const updatePostThunk = createAsyncThunk(
   "post/updatePost",
   async ({ request, config }: IUpdateParams, thunkAPI) => {
     try {
@@ -84,6 +80,3 @@ const postSlice = createSlice({
 });
 
 export default postSlice.reducer;
-
-// export const { getPostsTest } = postSlice.actions;
-

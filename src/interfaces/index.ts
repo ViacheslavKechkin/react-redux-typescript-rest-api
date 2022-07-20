@@ -1,8 +1,7 @@
 import { TPost, TDto, UpdateInterface } from "../types"
 
-export interface IProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+export interface IPropsButton extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children?: React.ReactNode;
-  onClick: () => any;
 }
 
 export interface IGetPost {
@@ -15,7 +14,7 @@ export type AxiosRequestConfig = {
   };
 };
 
-export interface IGetPosts extends TDto { };
+export interface IGet extends TDto { };
 
 export interface IUpdatePost extends UpdateInterface<TPost> { }
 
@@ -23,3 +22,5 @@ export interface IUpdateParams {
   request: IUpdatePost,
   config: Partial<AxiosRequestConfig>
 }
+
+

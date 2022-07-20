@@ -1,13 +1,12 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Button, Box } from "@chakra-ui/react";
+import { Box } from "@chakra-ui/react";
+
+import ResourceButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
-
-import Posts from "../Posts";
-import ResourceButton from "../../primitive/Button";
-import getPostsThunk from "../../store/postSlice";
+import useAppNavigation from "../../hooks/useAppNavigation";
 
 import "./style.scss";
 
@@ -15,37 +14,10 @@ const Main = () => {
   const post = useAppSelector((state) => state.post.detail);
   const posts = useAppSelector((state) => state.post.list);
 
+  const { goPosts, goComments, goAlbums, goPhotos, goTodos, goUsers } =
+    useAppNavigation();
+
   const dispatch = useAppDispatch();
-
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    // dispatch(getPostsThunk());
-  }, []);
-
-  const handlePosts = () => {
-    navigate("/posts");
-  };
-
-  const handleComments = () => {
-    navigate("/comments");
-  };
-
-  const handleAlbums = () => {
-    navigate("/albums");
-  };
-
-  const handlePhotos = () => {
-    navigate("/photos");
-  };
-
-  const handleTodos = () => {
-    navigate("/todos");
-  };
-
-  const handleUsers = () => {
-    navigate("/users");
-  };
 
   return (
     <div className="container">
@@ -58,12 +30,12 @@ const Main = () => {
           flexWrap={"wrap"}
           gap={"10px"}
         >
-          <ResourceButton onClick={handlePosts}>Posts</ResourceButton>
-          <ResourceButton onClick={handleComments}>Comments</ResourceButton>
-          <ResourceButton onClick={handleAlbums}>Albums</ResourceButton>
-          <ResourceButton onClick={handlePhotos}>Photos</ResourceButton>
-          <ResourceButton onClick={handleTodos}>Todos</ResourceButton>
-          <ResourceButton onClick={handleUsers}>Users</ResourceButton>
+          <ResourceButton onClick={goPosts}>Posts</ResourceButton>
+          <ResourceButton onClick={goComments}>Comments</ResourceButton>
+          <ResourceButton onClick={goAlbums}>Albums</ResourceButton>
+          <ResourceButton onClick={goPhotos}>Photos</ResourceButton>
+          <ResourceButton onClick={goTodos}>Todos</ResourceButton>
+          <ResourceButton onClick={goUsers}>Users</ResourceButton>
         </Box>
       </main>
     </div>
