@@ -1,26 +1,37 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { SimpleGrid, Box, Text, Heading } from "@chakra-ui/react";
+import { Container, SimpleGrid, Text } from "@chakra-ui/react";
 
-import { TArray, TPost } from "../../types";
+import Post from "../Post";
+import ActionButton from "../../primitive/Button";
 
-interface Props {
-  children?: React.ReactNode;
-  post: TPost;
-}
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import useAppNavigation from "../../hooks/useAppNavigation";
 
-const PostsPage: React.FC<Props> = ({ post }) => {
-  const { body, id, title, userId } = post;
+import { getPostsThunk } from "../../store/postSlice";
+
+const PostsPage = () => {
+  const post = useAppSelector((state) => state.post.detail);
+  const posts = useAppSelector((state) => state.post.list);
+  const { goMain } = useAppNavigation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getPostsThunk({}));
+  }, []);
 
   return (
-    <Box bg="#437276" maxH="auto" padding={2}>
-      <Text fontSize="sm">{id}</Text>
-      <Heading as="h5" size="sm">
-        {title}
-      </Heading>
-      <Text fontSize="sm">{body}</Text>
-      <Text fontSize="sm">UserID: {userId}</Text>
-    </Box>
+    <div className="container">
+      <ActionButton onClick={goMain}>Back Main</ActionButton>
+      <Text fontSize="lg">Posts</Text>
+      <Container maxW="1024px">
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {posts.result.map((post) => (
+            <Post post={post} key={`key-${post.id}`} />
+          ))}
+        </SimpleGrid>
+      </Container>
+    </div>
   );
 };
 

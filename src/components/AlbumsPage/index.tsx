@@ -1,22 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Box, Text } from "@chakra-ui/react";
+import { Container, SimpleGrid, Text } from "@chakra-ui/react";
 
-import { TAlbum } from "../../types";
+import Album from "../Album";
+import ActionButton from "../../primitive/Button";
 
-interface Props {
-  children?: React.ReactNode;
-  album: TAlbum;
-}
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import useAppNavigation from "../../hooks/useAppNavigation";
 
-const AlbumsPage: React.FC<Props> = ({ album }) => {
-  const { id, userId, title } = album;
+import { getAlbumThunk } from "../../store/albumSlice";
+
+const AlbumsPage = () => {
+  const albums = useAppSelector((state) => state.album.list);
+  const { goMain } = useAppNavigation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAlbumThunk({}));
+  }, []);
 
   return (
-    <Box bg="#437276" maxH="auto" padding={2}>
-      <Text fontSize="sm">userId: {userId}</Text>
-      <Text fontSize="sm">{title}</Text>
-    </Box>
+    <div className="container">
+      <ActionButton onClick={goMain}>Back Main</ActionButton>
+      <Text fontSize="lg">Albums</Text>
+      <Container maxW="1024px">
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {albums.result.map((album) => (
+            <Album album={album} key={`key-${album.id}`} />
+          ))}
+        </SimpleGrid>
+      </Container>
+    </div>
   );
 };
 

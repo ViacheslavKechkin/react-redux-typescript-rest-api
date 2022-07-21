@@ -2,12 +2,12 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 
 import Main from "./components/Main";
-import Posts from "./components/Posts";
-import Comments from "./components/Comments";
-import Albums from "./components/Albums";
-import Photos from "./components/Photos";
-import Todos from "./components/Todos";
-import Users from "./components/Users";
+import PostsPage from "./components/PostsPage";
+import CommentsPage from "./components/CommentsPage";
+import AlbumsPage from "./components/AlbumsPage";
+import PhotosPage from "./components/PhotosPage";
+import TodosPage from "./components/TodosPage";
+import UsersPage from "./components/UsersPage";
 
 const Routes = [
   {
@@ -16,27 +16,27 @@ const Routes = [
   },
   {
     path: "/posts",
-    element: <Posts />,
+    element: <PostsPage />,
   },
   {
     path: "/comments",
-    element: <Comments />,
+    element: <CommentsPage />,
   },
   {
     path: "/albums",
-    element: <Albums />,
+    element: <AlbumsPage />,
   },
   {
     path: "/photos",
-    element: <Photos />,
+    element: <PhotosPage />,
   },
   {
     path: "/todos",
-    element: <Todos />,
+    element: <TodosPage />,
   },
   {
     path: "/users",
-    element: <Users />,
+    element: <UsersPage />,
   },
   {
     path: "*",

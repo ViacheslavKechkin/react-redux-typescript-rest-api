@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Box, Text } from "@chakra-ui/react";
+import { Container, SimpleGrid, Text } from "@chakra-ui/react";
 
-import { TPhoto } from "../../types";
+import Photo from "../Photo";
+import ActionButton from "../../primitive/Button";
 
-interface Props {
-  children?: React.ReactNode;
-  photo: TPhoto;
-}
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import useAppNavigation from "../../hooks/useAppNavigation";
 
-const PhotosPage: React.FC<Props> = ({ photo }) => {
-  const { albumId, id, title, url, thumbnailUrl } = photo;
+import { getPhotoThunk } from "../../store/photoSlice";
+
+const PhotosPage = () => {
+  const photos = useAppSelector((state) => state.photo.list);
+  const { goMain } = useAppNavigation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getPhotoThunk({}));
+  }, []);
 
   return (
-    <Box bg="#437276" maxH="auto" padding={2}>
-      <Text fontSize="sm">{albumId}</Text>
-      <Text fontSize="sm">{title}</Text>
-      <Text fontSize="sm">url</Text>
-      <Text fontSize="sm">thumbnailUrl</Text>
-    </Box>
+    <div className="container">
+      <ActionButton onClick={goMain}>Back Main</ActionButton>
+      <Text fontSize="lg">Photos</Text>
+      <Container maxW="1024px">
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {photos.result.map((photo) => (
+            <Photo photo={photo} key={`key-${photo.id}`} />
+          ))}
+        </SimpleGrid>
+      </Container>
+    </div>
   );
 };
 

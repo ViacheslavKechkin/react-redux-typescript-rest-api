@@ -1,24 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Box, Text } from "@chakra-ui/react";
+import { Container, SimpleGrid, Text } from "@chakra-ui/react";
 
-import { TComment } from "../../types";
+import Comment from "../Comment";
+import ActionButton from "../../primitive/Button";
 
-interface Props {
-  children?: React.ReactNode;
-  comment: TComment;
-}
+import { getCommentThunk } from "../../store/commentSlice";
 
-const CommentsPage: React.FC<Props> = ({ comment }) => {
-  const { postId, id, name, email, body } = comment;
+import useAppNavigation from "../../hooks/useAppNavigation";
+import { useAppSelector, useAppDispatch } from "../../hooks";
+
+const CommentsPage = () => {
+  const comments = useAppSelector((state) => state.comment.list);
+  const { goMain } = useAppNavigation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getCommentThunk({}));
+  }, []);
 
   return (
-    <Box bg="#437276" maxH="auto" padding={2}>
-      <Text fontSize="sm">PostId: {postId}</Text>
-      <Text fontSize="sm">Name: {name}</Text>
-      <Text fontSize="sm">Email: {email}</Text>
-      <Text fontSize="sm">{body}</Text>
-    </Box>
+    <div className="container">
+      <ActionButton onClick={goMain}>Back Main</ActionButton>
+      <Text fontSize="lg">Comments</Text>
+      <Container maxW="1024px">
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {comments.result.map((comment) => (
+            <Comment comment={comment} key={`key-${comment.id}`} />
+          ))}
+        </SimpleGrid>
+      </Container>
+    </div>
   );
 };
 

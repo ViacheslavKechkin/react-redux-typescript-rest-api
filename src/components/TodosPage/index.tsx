@@ -1,23 +1,36 @@
-import React from "react";
+import React, { useEffect } from "react";
 
-import { Box, Text, Checkbox } from "@chakra-ui/react";
+import { Container, SimpleGrid, Text } from "@chakra-ui/react";
 
-import { TTodo } from "../../types";
+import Todo from "../Todo";
+import ActionButton from "../../primitive/Button";
 
-interface Props {
-  children?: React.ReactNode;
-  todo: TTodo;
-}
+import { useAppSelector, useAppDispatch } from "../../hooks";
+import useAppNavigation from "../../hooks/useAppNavigation";
 
-const TodosPage: React.FC<Props> = ({ todo }) => {
-  const { completed, id, title, userId } = todo;
+import { getTodoThunk } from "../../store/todoSlice";
+
+const TodosPage = () => {
+  const todos = useAppSelector((state) => state.todo.list);
+  const { goMain } = useAppNavigation();
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTodoThunk({}));
+  }, []);
 
   return (
-    <Box bg="#437276" maxH="auto" padding={2}>
-      <Text fontSize="sm">{userId}</Text>
-      <Text fontSize="sm">{title}</Text>
-      <Checkbox isChecked={completed}>completed</Checkbox>
-    </Box>
+    <div className="container">
+      <ActionButton onClick={goMain}>Back Main</ActionButton>
+      <Text fontSize="lg">Todos</Text>
+      <Container maxW="1024px">
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {todos.result.map((todo) => (
+            <Todo todo={todo} key={`key-${todo.id}`} />
+          ))}
+        </SimpleGrid>
+      </Container>
+    </div>
   );
 };
 
