@@ -6,7 +6,7 @@ import { IGet } from "../interfaces";
 
 const getUsers = ({ ...params }: IGet) =>
   requestInstance
-    .get<TUser[]>(`albums`, { params });
+    .get<TUser[]>(`users`, { params });
 
 
 export const userService = { getUsers };

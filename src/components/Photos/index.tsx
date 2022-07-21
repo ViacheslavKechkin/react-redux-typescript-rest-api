@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Container } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 
-import Photo from "../Photo";
+import PhotosPage from "../PhotosPage";
 import ResourceButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
@@ -26,7 +26,11 @@ const Photos = () => {
       <ResourceButton onClick={goMain}>Back Main</ResourceButton>
       Photos
       <Container maxW="1024px">
-        <Photo photos={photos} />
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {photos.result.map((photo) => {
+            return <PhotosPage photo={photo} key={`key-${photo.id}`} />;
+          })}
+        </SimpleGrid>
       </Container>
     </div>
   );

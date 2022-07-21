@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Container } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 
-import Post from "../Post";
+import PostsPage from "../PostsPage";
 import ResourceButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
@@ -27,7 +27,11 @@ const Posts = () => {
       <ResourceButton onClick={goMain}>Back Main</ResourceButton>
       Posts
       <Container maxW="1024px">
-        <Post posts={posts} />
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {posts.result.map((post) => {
+            return <PostsPage post={post} key={`key-${post.id}`} />;
+          })}
+        </SimpleGrid>
       </Container>
     </div>
   );

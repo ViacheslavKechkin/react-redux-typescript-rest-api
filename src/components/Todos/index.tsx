@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Container } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 
-import Todo from "../Todo";
+import TodosPage from "../TodosPage";
 import ResourceButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
@@ -26,7 +26,11 @@ const Todos = () => {
       <ResourceButton onClick={goMain}>Back Main</ResourceButton>
       Todos
       <Container maxW="1024px">
-        <Todo todos={todos} />
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {todos.result.map((todo) => {
+            return <TodosPage todo={todo} key={`key-${todo.id}`} />;
+          })}
+        </SimpleGrid>
       </Container>
     </div>
   );

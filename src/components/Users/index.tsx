@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Container } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 
-import User from "../User";
+import UsersPage from "../UsersPage";
 import ResourceButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
@@ -26,7 +26,11 @@ const Users = () => {
       <ResourceButton onClick={goMain}>Back Main</ResourceButton>
       Users
       <Container maxW="1024px">
-        <User users={users} />
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {users.result.map((user) => {
+            return <UsersPage user={user} key={`key-${user.id}`} />;
+          })}
+        </SimpleGrid>
       </Container>
     </div>
   );

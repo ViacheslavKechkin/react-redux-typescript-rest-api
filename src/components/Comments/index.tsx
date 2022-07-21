@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Container } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 
-import Comment from "../Comment";
+import CommentsPage from "../CommentsPage";
 import ResourceButton from "../../primitive/Button";
 
 import { getCommentThunk } from "../../store/commentSlice";
@@ -26,7 +26,11 @@ const Comments = () => {
       <ResourceButton onClick={goMain}>Back Main</ResourceButton>
       Comments
       <Container maxW="1024px">
-        <Comment comments={comments} />
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {comments.result.map((comment) => {
+            return <CommentsPage comment={comment} key={`key-${comment.id}`} />;
+          })}
+        </SimpleGrid>
       </Container>
     </div>
   );

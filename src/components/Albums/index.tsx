@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 
-import { Container } from "@chakra-ui/react";
+import { Container, SimpleGrid } from "@chakra-ui/react";
 
-import Album from "../Album";
+import AlbumsPage from "../AlbumsPage";
 import ResourceButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
@@ -26,7 +26,11 @@ const Albums = () => {
       <ResourceButton onClick={goMain}>Back Main</ResourceButton>
       Albums
       <Container maxW="1024px">
-        <Album albums={albums} />
+        <SimpleGrid columns={1} spacing={5} paddingBottom={10}>
+          {albums.result.map((album) => {
+            return <AlbumsPage album={album} key={`key-${album.id}`} />;
+          })}
+        </SimpleGrid>
       </Container>
     </div>
   );
