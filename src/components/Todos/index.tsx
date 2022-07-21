@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Container, SimpleGrid } from "@chakra-ui/react";
 
 import TodosPage from "../TodosPage";
-import ResourceButton from "../../primitive/Button";
+import ActionButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import useAppNavigation from "../../hooks/useAppNavigation";
@@ -23,7 +23,7 @@ const Todos = () => {
 
   return (
     <div className="container">
-      <ResourceButton onClick={goMain}>Back Main</ResourceButton>
+      <ActionButton onClick={goMain}>Back Main</ActionButton>
       Todos
       <Container maxW="1024px">
         <SimpleGrid columns={1} spacing={5} paddingBottom={10}>

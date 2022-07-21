@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import { Box } from "@chakra-ui/react";
 
-import ResourceButton from "../../primitive/Button";
+import ActionButton from "../../primitive/Button";
 
 import { useAppSelector, useAppDispatch } from "../../hooks";
 import useAppNavigation from "../../hooks/useAppNavigation";
@@ -30,12 +30,12 @@ const Main = () => {
           flexWrap={"wrap"}
           gap={"10px"}
         >
-          <ResourceButton onClick={goPosts}>Posts</ResourceButton>
-          <ResourceButton onClick={goComments}>Comments</ResourceButton>
-          <ResourceButton onClick={goAlbums}>Albums</ResourceButton>
-          <ResourceButton onClick={goPhotos}>Photos</ResourceButton>
-          <ResourceButton onClick={goTodos}>Todos</ResourceButton>
-          <ResourceButton onClick={goUsers}>Users</ResourceButton>
+          <ActionButton onClick={goPosts}>Posts</ActionButton>
+          <ActionButton onClick={goComments}>Comments</ActionButton>
+          <ActionButton onClick={goAlbums}>Albums</ActionButton>
+          <ActionButton onClick={goPhotos}>Photos</ActionButton>
+          <ActionButton onClick={goTodos}>Todos</ActionButton>
+          <ActionButton onClick={goUsers}>Users</ActionButton>
         </Box>
       </main>
     </div>

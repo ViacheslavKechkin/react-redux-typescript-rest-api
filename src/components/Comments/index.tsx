@@ -3,7 +3,7 @@ import React, { useEffect } from "react";
 import { Container, SimpleGrid } from "@chakra-ui/react";
 
 import CommentsPage from "../CommentsPage";
-import ResourceButton from "../../primitive/Button";
+import ActionButton from "../../primitive/Button";
 
 import { getCommentThunk } from "../../store/commentSlice";
 
@@ -23,7 +23,7 @@ const Comments = () => {
 
   return (
     <div className="container">
-      <ResourceButton onClick={goMain}>Back Main</ResourceButton>
+      <ActionButton onClick={goMain}>Back Main</ActionButton>
       Comments
       <Container maxW="1024px">
         <SimpleGrid columns={1} spacing={5} paddingBottom={10}>

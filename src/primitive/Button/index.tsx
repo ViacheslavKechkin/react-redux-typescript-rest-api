@@ -4,7 +4,7 @@ import { Button } from "@chakra-ui/react";
 
 import { IPropsButton } from "../../interfaces";
 
-const ResourceButton: React.FC<IPropsButton> = (props) => {
+const ActionButton: React.FC<IPropsButton> = (props) => {
   const rootRef = useRef<HTMLButtonElement>(null);
 
   const { onClick, ...restProps } = props;
@@ -23,4 +23,4 @@ const ResourceButton: React.FC<IPropsButton> = (props) => {
   );
 };
 
-export default ResourceButton;
+export default ActionButton;
