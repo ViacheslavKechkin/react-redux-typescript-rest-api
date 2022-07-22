@@ -1,7 +1,9 @@
 import React from "react";
 
+import "./style.scss";
+
 const Header = () => {
-    return <header>footer</header>;
+  return <header>header</header>;
 };
 
 export default Header;

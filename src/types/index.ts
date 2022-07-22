@@ -1,3 +1,4 @@
+
 export type TPost = {
   userId: number;
   id: number;
@@ -84,3 +85,5 @@ export type TSlice<T> = {
   detail: TObject<T>;
   list: TArray<T>;
 };
+
+export type UpdateInterface<T> = Partial<Omit<T, "id">> & { id: number }
